@@ -47,6 +47,8 @@ class nexus (
   $nexus_context         = $nexus::params::nexus_context,
   $nexus_manage_user     = $nexus::params::nexus_manage_user,
   $nexus_data_folder     = $nexus::params::nexus_data_folder,
+  $nexus_max_memory      = $nexus::params::nexus_min_memory,
+  $nexus_min_memory      = $nexus::params::nexus_max_memory,
   $download_folder       = $nexus::params::download_folder,
   $manage_config         = $nexus::params::manage_config,
   $md5sum                = $nexus::params::md5sum,
@@ -61,7 +63,14 @@ class nexus (
   if $nexus_work_dir != undef {
     $real_nexus_work_dir = $nexus_work_dir
   } else {
-    $real_nexus_work_dir = "${nexus_root}/sonatype-work/nexus"
+    case $version {
+      /^3\.1\.\d+$/: {
+        $real_nexus_work_dir = "${nexus_root}/sonatype-work/nexus3"
+      }
+      default: {
+        $real_nexus_work_dir = "${nexus_root}/sonatype-work/nexus"
+      }
+    }
   }
 
   # Determine if Nexus Pro should be deployed instead of OSS
@@ -122,6 +131,8 @@ class nexus (
       nexus_context     => $nexus_context,
       nexus_work_dir    => $real_nexus_work_dir,
       nexus_data_folder => $nexus_data_folder,
+      nexus_min_memory  => $nexus_min_memory,
+      nexus_max_memory  => $nexus_max_memory,
       notify            => Class['nexus::service'],
       require           => Anchor['nexus::setup']
     }

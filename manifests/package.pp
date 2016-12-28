@@ -28,24 +28,24 @@
 # Copyright 2013 Hubspot
 #
 class nexus::package (
-  $version = $::nexus::version,
-  $revision = $::nexus::revision,
-  $deploy_pro = $::nexus::deploy_pro,
-  $download_site = $::nexus::download_site,
-  $nexus_type = $::nexus::nexus_type,
-  $nexus_root = $::nexus::nexus_root,
-  $nexus_home_dir = $::nexus::nexus_home_dir,
-  $nexus_user = $::nexus::nexus_user,
-  $nexus_group = $::nexus::nexus_group,
-  $nexus_work_dir = $::nexus::nexus_work_dir,
-  $nexus_work_dir_manage = $::nexus::nexus_work_dir_manage,
-  $nexus_work_recurse = $::nexus::nexus_work_recurse,
+  $version                       = $::nexus::version,
+  $revision                      = $::nexus::revision,
+  $deploy_pro                    = $::nexus::deploy_pro,
+  $download_site                 = $::nexus::download_site,
+  $nexus_type                    = $::nexus::nexus_type,
+  $nexus_root                    = $::nexus::nexus_root,
+  $nexus_home_dir                = $::nexus::nexus_home_dir,
+  $nexus_user                    = $::nexus::nexus_user,
+  $nexus_group                   = $::nexus::nexus_group,
+  $nexus_work_dir                = $::nexus::nexus_work_dir,
+  $nexus_work_dir_manage         = $::nexus::nexus_work_dir_manage,
+  $nexus_work_recurse            = $::nexus::nexus_work_recurse,
   $nexus_selinux_ignore_defaults = $::nexus::nexus_selinux_ignore_defaults,
-  $download_folder = $::nexus::download_folder,
-  $md5sum = $::nexus::md5sum,
+  $download_folder               = $::nexus::download_folder,
+  $md5sum                        = $::nexus::md5sum,
 ) {
 
-  $nexus_home      = "${nexus_root}/${nexus_home_dir}"
+  $nexus_home = "${nexus_root}/${nexus_home_dir}"
 
   $full_version = "${version}-${revision}"
 

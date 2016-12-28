@@ -34,10 +34,10 @@
 # Copyright 2013 Hubspot
 #
 class nexus::service (
-  $nexus_home = $::nexus::nexus_home,
-  $nexus_user = $::nexus::nexus_user,
+  $nexus_home  = $::nexus::nexus_home,
+  $nexus_user  = $::nexus::nexus_user,
   $nexus_group = $::nexus::nexus_group,
-  $version = $::nexus::version,
+  $version     = $::nexus::version,
 ) {
   $nexus_script = "${nexus_home}/bin/nexus"
 
