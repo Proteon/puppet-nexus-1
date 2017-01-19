@@ -63,13 +63,10 @@ class nexus (
   if $nexus_work_dir != undef {
     $real_nexus_work_dir = $nexus_work_dir
   } else {
-    case $version {
-      /^3\.1\.\d+$/: {
-        $real_nexus_work_dir = "${nexus_root}/sonatype-work/nexus3"
-      }
-      default: {
-        $real_nexus_work_dir = "${nexus_root}/sonatype-work/nexus"
-      }
+    if $version !~ /\d.*/ or versioncmp($version, '3.1.0') >= 0 {
+      $real_nexus_work_dir = "${nexus_root}/sonatype-work/nexus3"
+    } else {
+      $real_nexus_work_dir = "${nexus_root}/sonatype-work/nexus"
     }
   }
 
