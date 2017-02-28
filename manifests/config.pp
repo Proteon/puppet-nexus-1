@@ -39,8 +39,8 @@ class nexus::config(
     $conf_path = 'etc/nexus.properties'
     $nexus_properties_file = "${nexus_work_dir}/${conf_path}"
     $nexus_data_dir = "${nexus_root}/${nexus_home_dir}/data"
-    $nexus_rc_file = "${nexus_home}/bin/nexus.rc"
-    $nexus_vmoptions_file = "${nexus_home}/bin/nexus.vmoptions"
+    $nexus_rc_file = "${nexus_root}/${nexus_home_dir}/bin/nexus.rc"
+    $nexus_vmoptions_file = "${nexus_root}/${nexus_home_dir}/bin/nexus.vmoptions"
 
     file { $nexus_properties_file:
       ensure  => present,
