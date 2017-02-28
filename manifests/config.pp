@@ -98,14 +98,6 @@ class nexus::config(
       $nexus_rc_file = "${nexus_home}/bin/nexus.rc"
       $nexus_vmoptions_file = "${nexus_home}/bin/nexus.vmoptions"
 
-      file { $nexus_work_dir:
-        ensure => directory,
-        owner   => $nexus_user,
-        group   => $nexus_group,
-        mode    => '0755',
-        recurse => true,
-      }
-
       file { "${nexus_work_dir}/etc":
         ensure => directory,
         owner   => $nexus_user,
