@@ -96,6 +96,30 @@ class nexus::config(
     file { $nexus_properties_file:
       ensure =>  present,
     }
+
+    file_line{ 'nexus-application-host':
+      path  => $nexus_properties_file,
+      match => '^application-host',
+      line  => "application-host=${nexus_host}"
+    }
+
+    file_line{ 'nexus-application-port':
+      path  => $nexus_properties_file,
+      match => '^application-port',
+      line  => "application-port=${nexus_port}"
+    }
+
+    file_line{ 'nexus-webapp-context-path':
+      path  => $nexus_properties_file,
+      match => '^nexus-webapp-context-path',
+      line  => "nexus-webapp-context-path=${nexus_context}"
+    }
+
+    file_line{ 'nexus-work':
+      path  => $nexus_properties_file,
+      match => '^nexus-work',
+      line  => "nexus-work=${nexus_work_dir}"
+    }
   } else {
     $conf_path = 'conf/nexus.properties'
     $nexus_properties_file = "${nexus_root}/${nexus_home_dir}/${conf_path}"
@@ -106,30 +130,30 @@ class nexus::config(
     file { $nexus_properties_file:
       ensure =>  present,
     }
-  }
 
-  file_line{ 'nexus-application-host':
-    path  => $nexus_properties_file,
-    match => '^application-host',
-    line  => "application-host=${nexus_host}"
-  }
+    file_line{ 'nexus-application-host':
+      path  => $nexus_properties_file,
+      match => '^application-host',
+      line  => "application-host=${nexus_host}"
+    }
 
-  file_line{ 'nexus-application-port':
-    path  => $nexus_properties_file,
-    match => '^application-port',
-    line  => "application-port=${nexus_port}"
-  }
+    file_line{ 'nexus-application-port':
+      path  => $nexus_properties_file,
+      match => '^application-port',
+      line  => "application-port=${nexus_port}"
+    }
 
-  file_line{ 'nexus-webapp-context-path':
-    path  => $nexus_properties_file,
-    match => '^nexus-webapp-context-path',
-    line  => "nexus-webapp-context-path=${nexus_context}"
-  }
+    file_line{ 'nexus-webapp-context-path':
+      path  => $nexus_properties_file,
+      match => '^nexus-webapp-context-path',
+      line  => "nexus-webapp-context-path=${nexus_context}"
+    }
 
-  file_line{ 'nexus-work':
-    path  => $nexus_properties_file,
-    match => '^nexus-work',
-    line  => "nexus-work=${nexus_work_dir}"
+    file_line{ 'nexus-work':
+      path  => $nexus_properties_file,
+      match => '^nexus-work',
+      line  => "nexus-work=${nexus_work_dir}"
+    }
   }
 
   if $nexus_data_folder {
