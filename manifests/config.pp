@@ -33,29 +33,10 @@ class nexus::config(
   $nexus_max_memory  = $::nexus::nexus_max_memory,
 ) {
 
-  if $version !~ /\d.*/ or versioncmp($version, '3.1.0') >= 0 {
-    # Per the Sonatype documentation the custom nexus properties file is
-    # {karaf.data}/etc/nexus.properties where {karaf.data} is the work dir
-    $conf_path = 'etc/nexus.properties'
-    $nexus_properties_file = "${nexus_work_dir}/${conf_path}"
-  }
-  elsif versioncmp($version, '3.0.0') >= 0 {
-    $conf_path = 'etc/org.sonatype.nexus.cfg'
-    $nexus_properties_file = "${nexus_root}/${nexus_home_dir}/${conf_path}"
-  } else {
-    $conf_path = 'conf/nexus.properties'
-    $nexus_properties_file = "${nexus_root}/${nexus_home_dir}/${conf_path}"
-  }
-  $nexus_data_dir = "${nexus_root}/${nexus_home_dir}/data"
-
-  # Nexus >=3.x do no necesarily have a properties file in place to
-  # modify. Make sure that there is at least a minmal file there
-  file { $nexus_properties_file:
-    ensure =>  present,
-  }
   case $version {
     /^2\.\d+\.\d+$/: {
-      $nexus_properties_file = "${nexus_home}/conf/nexus.properties"
+      $conf_path = 'conf/nexus.properties'
+      $nexus_properties_file = "${nexus_root}/${nexus_home_dir}/${conf_path}"
       $nexus_data_dir = "${nexus_home}/data"
 
       file_line{ 'nexus-application-host':
@@ -83,8 +64,15 @@ class nexus::config(
       }
     }
     /^3\.0\.\d+$/: {
-      $nexus_properties_file = "${nexus_home}/etc/org.sonatype.nexus.cfg"
+      $conf_path = 'etc/org.sonatype.nexus.cfg'
+      $nexus_properties_file = "${nexus_root}/${nexus_home_dir}/${conf_path}"
       $nexus_data_dir = "${nexus_home}/data"
+
+      # Nexus >=3.x do no necesarily have a properties file in place to
+      # modify. Make sure that there is at least a minimal file there
+      file { $nexus_properties_file:
+        ensure =>  present,
+      }
 
       file_line{ 'nexus-application-host':
         path  => $nexus_properties_file,
@@ -111,10 +99,19 @@ class nexus::config(
       }
     }
     default: {
-      $nexus_properties_file = "${nexus_work_dir}/etc/nexus.properties"
+      # Per the Sonatype documentation the custom nexus properties file is
+      # {karaf.data}/etc/nexus.properties where {karaf.data} is the work dir
+      $conf_path = 'etc/nexus.properties'
+      $nexus_properties_file = "${nexus_work_dir}/${conf_path}"
       $nexus_data_dir = "${nexus_work_dir}/data"
       $nexus_rc_file = "${nexus_home}/bin/nexus.rc"
       $nexus_vmoptions_file = "${nexus_home}/bin/nexus.vmoptions"
+
+      # Nexus >=3.x do no necesarily have a properties file in place to
+      # modify. Make sure that there is at least a minimal file there
+      file { $nexus_properties_file:
+        ensure =>  present,
+      }
 
       file { "${nexus_work_dir}/etc":
         ensure => directory,
