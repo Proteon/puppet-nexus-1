@@ -1,0 +1,10 @@
+# Jetty section
+<% if @nexus_port %>application-port=<%= @nexus_port %><% else %># application-port=8081<% end %>
+<% if @nexus_host %>application-host=<%= @nexus_host %><% else %># application-host=0.0.0.0<% end %>
+# nexus-args=${jetty.etc}/jetty.xml,${jetty.etc}/jetty-http.xml,${jetty.etc}/jetty-requestlog.xml
+<% if @nexus_context %>nexus-context-path=<%= @nexus_context %><% else %># nexus-context-path=/<% end %>
+
+# Nexus section
+# nexus-edition=nexus-pro-edition
+# nexus-features=\
+#  nexus-pro-feature

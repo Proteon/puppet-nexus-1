@@ -39,6 +39,8 @@ class nexus::params {
   $nexus_manage_user             = true
   $pro_download_site             = 'http://download.sonatype.com/nexus/professional-bundle'
   $nexus_data_folder             = undef
+  $nexus_min_memory              = '1200M'
+  $nexus_max_memory              = '1200M'
   $download_folder               = '/srv'
   $manage_config                 = true
   $md5sum                        = undef
